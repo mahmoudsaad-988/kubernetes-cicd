@@ -24,8 +24,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/mahmoudsaad-988:latest
-            ghcr.io/mahmoudsaad-988:${{ github.sha }}
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
       - name: Update GitOps repository
         shell: bash
         env:
@@ -39,13 +39,13 @@ jobs:
           rm -rf gitops
           
           # Clone repository using HTTPS URL without token
-          git clone https://github.com/MahmoudSaad-988/grade-api-gitops.git gitops
+          git clone https://github.com/${{ github.repository }}/grade-api-gitops.git gitops
           cd gitops
           
           if [[ "$OSTYPE" == "darwin"* ]]; then
-            sed -i '' "s|image: ghcr.io/mahmoudsaad-988:.*|image: ghcr.io/mahmoudsaad-988:${{ github.sha }}|g" deployment.yaml
+            sed -i '' "s|image: ghcr.io/${{ github.repository }}:.*|image: ghcr.io/${{ github.repository }}:${{ github.sha }}|g" deployment.yaml
           else
-            sed -i "s|image: ghcr.io/mahmoudsaad-988:.*|image: ghcr.io/mahmoudsaad-988:${{ github.sha }}|g" deployment.yaml
+            sed -i "s|image: ghcr.io/${{ github.repository }}:.*|image: ghcr.io/${{ github.repository }}:${{ github.sha }}|g" deployment.yaml
           fi
           
           # Commit changes
@@ -55,4 +55,4 @@ jobs:
           git commit -m "Update image to ${{ github.sha }}"
           
           # Push
-          git push -f https://${GIT_TOKEN}@github.com/MahmoudSaad-988/grade-api-gitops.git main
+          git push -f https://${GIT_TOKEN}@github.com/${{ github.repository }}/grade-api-gitops.git main
