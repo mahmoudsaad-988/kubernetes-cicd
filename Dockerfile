@@ -3,11 +3,11 @@ FROM node:14
 WORKDIR /app
 
 # Copy package files first
-COPY src/package*.json ./
+COPY source/package*.json ./
 RUN npm install
 
 # Copy source code
-COPY src/ ./
+COPY source/ ./
 
 EXPOSE 3000
 
