@@ -4,10 +4,12 @@ WORKDIR /app
 
 # Copy package files first
 COPY source/package*.json ./
+
+# Install dependencies 
 RUN npm install
 
 # Copy source code
-COPY source/ ./
+COPY source/ .
 
 EXPOSE 3000
 
