@@ -9,7 +9,7 @@ COPY source/package*.json ./
 RUN npm install
 
 # Copy source code
-COPY source/ .
+COPY source/ ./
 
 EXPOSE 3000
 
